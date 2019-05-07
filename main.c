@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-
-
+#include "cabeceras.h"
 
 void recibirArgumentos(int argc, char *argv[], int *n, int *flag){
 	int flags, opt;
@@ -61,6 +57,7 @@ void recibirArgumentos(int argc, char *argv[], int *n, int *flag){
 
 
 int main(int argc, char *argv[]){
+	leerArchivo("datos.csv");
 
 	int n = 0, flag = 0;
 	recibirArgumentos(argc, argv, &n, &flag);
