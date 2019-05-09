@@ -41,6 +41,7 @@ Nodo * leerArchivo(char * direccion){
     	agregar(aux, inicial);
 	}
 	fclose(fp);
+	return inicial;
 }
 
 void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){

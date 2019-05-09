@@ -23,15 +23,19 @@ void freeNodos(Nodo * nodoInicial){
 	}
 }
 
-Nodo * leerArchivo(char * direccion){
+Nodo * recibirDatos(){
 	Nodo * inicial= NULL;
 	Nodo * aux;	
 	FILE* fp;
-	char buffer[255];
+	char buffer[100];
 	char * token;
-	fp = fopen(direccion, "r");
 	char * pend;
-	while(fgets(buffer, 255, (FILE*) fp)) {
+	while(1) {
+		read(STDIN_FILENO, buffer, sizeof(buffer));
+		if(strcmp(buffer,"FIN") == 0){
+			close(STDIN_FILENO);
+			break;
+		}
 		aux = malloc(sizeof(Nodo));
 		aux->siguiente = NULL;
 		aux->visibilidad = malloc(sizeof(Visibilidad));
@@ -47,5 +51,5 @@ Nodo * leerArchivo(char * direccion){
     	aux->visibilidad->ruido = strtof(token,NULL);
     	agregar(aux, inicial);
 	}
-	fclose(fp);
+	return inicial;
 }
