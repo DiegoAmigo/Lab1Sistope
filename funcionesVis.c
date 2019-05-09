@@ -36,7 +36,7 @@ int recibirDatos(Nodo * inicial){
 			close(STDIN_FILENO);
 			break;
 		}
-		resultado++;
+		cantidad++;
 		aux = malloc(sizeof(Nodo));
 		aux->siguiente = NULL;
 		aux->visibilidad = malloc(sizeof(Visibilidad));
@@ -51,6 +51,73 @@ int recibirDatos(Nodo * inicial){
     	token = strtok(NULL,",");
     	aux->visibilidad->ruido = strtof(token,NULL);
     	agregar(aux, inicial);
+	}
+	return cantidad;
+}
+
+float mediaReal(Nodo *nodoInicio, int anchoDisco){
+	float resultado=0;
+	Nodo *aux=NULL;
+	aux=nodoInicio;
+	if (nodoInicio->siguiente==NULL){
+		resultado = (nodoInicio->visibilidad->real);
+	}
+	else{
+		while (aux->siguiente!=NULL){
+			resultado = resultado + aux->visibilidad->real;
+			aux=aux->siguiente;
+		}
+		resultado=resultado/anchoDisco;
+	}
+	return resultado;
+}
+
+float mediaImaginaria(Nodo *nodoInicio, int anchoDisco){
+	float resultado=0;
+	Nodo *aux=NULL;
+	aux=nodoInicio;
+	if (nodoInicio->siguiente==NULL){
+		resultado = (nodoInicio->visibilidad->imaginaria);
+	}
+	else{
+		while (aux->siguiente!=NULL){
+			resultado = resultado + aux->visibilidad->imaginaria;
+			aux=aux->siguiente;
+		}
+		resultado=resultado/anchoDisco;
+	}
+	return resultado;
+
+}
+
+float potencia(Nodo *nodoInicio){
+	float resultado=0;
+	Nodo *aux=NULL;
+	aux=nodoInicio;
+	if(nodoInicio->siguiente==NULL){
+		resultado= sqrtf(powf(nodoInicio->visibilidad->real, 2) + powf(nodoInicio->visibilidad->imaginaria, 2));
+	}
+	else{
+		while(aux->siguiente!=NULL){
+			resultado= resultado + sqrtf(powf(nodoInicio->visibilidad->real, 2) + powf(nodoInicio->visibilidad->imaginaria, 2));
+			aux=aux->siguiente;
+		}
+	}
+	return resultado;
+}
+
+float ruidoTotal(Nodo *nodoInicio){
+	float resultado=0;
+	Nodo *aux=NULL;
+	aux=nodoInicio;
+	if(nodoInicio->siguiente==NULL){
+		resultado=nodoInicio->visibilidad->ruido;
+	}
+	else{
+		while(aux->siguiente!=NULL){
+			resultado=resultado + aux->visibilidad->ruido;
+			aux=aux->siguiente;
+		}
 	}
 	return resultado;
 }
