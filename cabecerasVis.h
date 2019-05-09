@@ -20,6 +20,11 @@ struct Nodo{
 
 typedef struct Nodo Nodo;
 
-void agregar(Nodo * nuevoNodo, Nodo * nodoInicial);
-void freeNodos(Nodo * nodoInicial);
-Nodo * leerArchivo(char * direccion);
+struct Resultado{
+	float mediaReal;
+	float mediaImaginaria;
+	float potencia;
+	float ruidoTotal;
+};
+
+typedef struct Resultado Resultado;

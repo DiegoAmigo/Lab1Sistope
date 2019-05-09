@@ -1,4 +1,4 @@
-#include "cabeceras.h"
+#include "cabecerasVis.h"
 
 void agregar(Nodo * nuevoNodo, Nodo * nodoInicial){
 	if(nodoInicial == NULL){
