@@ -49,16 +49,16 @@ void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
 	int i;
 	int * pids = (int *)calloc(ndiscos, sizeof(int));
 	//se asigna memoria para los descriptores de cada hijo y se les hace pipe
-	for(i = 0; i<ndiscos*2, i++){
+	for(i = 0; i<ndiscos*2; i++){
 		descriptores[i] = (int *)calloc(2,sizeof(int));
 		pipe(descriptores[i]);
 	}
 	//se crean los hijos, se establecen los canales de comunicación y se les hace exec
 	int j;
 	for(i = 0; i<ndiscos; i++){
-		pid[i] = fork();
+		pids[i] = fork();
 		j = i*2;
-		if(pid[i] == 0){
+		if(pids[i] == 0){
 			//descriptor[j] será para que el padre le envíe datos al hijo i
 			close(descriptores[j][WRITE]);//Se cierra el canal de escritura del descriptor[j]
 			dup2(descriptores[j][READ],STDIN_FILENO);//El canal de lectura del descriptor[j] se duplica y pasa a ser el standar input
@@ -106,4 +106,14 @@ void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
 		close(descriptores[j][WRITE]); //Se cierra descriptor del padre para escritura ya que no se hará mas uso de el.
 	}
 	//Se leen los resultados de los hijos.
+}
+
+void salidaArchivo(char *nombreArchivo, Resultado **resultado, int cantDiscos){
+	FILE *salida=fopen(nombreArchivo, "a");
+	for(int i=0;i<cantDiscos;i++){
+		fprintf(salida, "%s %i\n %s %f", "Disco", i, "Media Real: ", resultado[i]->mediaReal);
+		fprintf(salida, "%s %f", "Media Imaginaria: ", resultado[i]->mediaImaginaria);
+		fprintf(salida, "%s %f", "Potencia: ", resultado[i]->potencia);
+		fprintf(salida, "%s %f", "Ruido Total: ", resultado[i]->ruidoTotal);
+	}
 }

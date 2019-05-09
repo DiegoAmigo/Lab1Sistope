@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include "cabecerasVis.h"
 int main(){
 	int flag;
 	read(STDIN_FILENO,&flag, sizeof(flag));
