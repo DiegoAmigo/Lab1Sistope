@@ -23,19 +23,20 @@ void freeNodos(Nodo * nodoInicial){
 	}
 }
 
-Nodo * recibirDatos(){
-	Nodo * inicial= NULL;
+int recibirDatos(Nodo * inicial){
+	inicial = NULL;
 	Nodo * aux;	
-	FILE* fp;
 	char buffer[100];
 	char * token;
 	char * pend;
+	int cantidad = 0;
 	while(1) {
 		read(STDIN_FILENO, buffer, sizeof(buffer));
 		if(strcmp(buffer,"FIN") == 0){
 			close(STDIN_FILENO);
 			break;
 		}
+		resultado++;
 		aux = malloc(sizeof(Nodo));
 		aux->siguiente = NULL;
 		aux->visibilidad = malloc(sizeof(Visibilidad));
@@ -51,5 +52,5 @@ Nodo * recibirDatos(){
     	aux->visibilidad->ruido = strtof(token,NULL);
     	agregar(aux, inicial);
 	}
-	return inicial;
+	return resultado;
 }

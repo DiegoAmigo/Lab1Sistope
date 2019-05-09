@@ -25,6 +25,7 @@ struct Resultado{
 	float mediaImaginaria;
 	float potencia;
 	float ruidoTotal;
+	int pid;
 };
 
 typedef struct Resultado Resultado;
