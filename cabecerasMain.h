@@ -22,3 +22,4 @@ typedef struct Resultado Resultado;
 void agregar(Nodo * nuevoNodo, Nodo * nodoInicial);
 void freeNodos(Nodo * nodoInicial);
 Nodo * leerArchivo(char * direccion);
+Resultado ** delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag);

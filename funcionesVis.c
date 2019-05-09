@@ -19,6 +19,7 @@ void freeNodos(Nodo * nodoInicial){
 	while(actual->siguiente != NULL){
 		aux = actual;
 		actual = actual->siguiente;
+		free(aux->visibilidad);
 		free(aux);
 	}
 }
