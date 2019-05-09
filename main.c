@@ -7,7 +7,8 @@
 
 void recibirArgumentos(int argc, char *argv[], int *n, int *flag){
 	int flags, opt;
-
+	Nodo *inicio=NULL;
+	Resultado **resultados=NULL;
 	char *nombreArchivo = (char*)malloc(sizeof(char)*60);
 	char *nombreSalida= (char*)calloc(60, sizeof(char));
 	int cantDiscos;
@@ -43,6 +44,9 @@ void recibirArgumentos(int argc, char *argv[], int *n, int *flag){
 	if(flags==1){//si se encontro un flag -m, se setea la variable global flag = 1, respecto al scope del proceso principal
 		(*flag) = 1;
 		//detecta el flag entonces se muestran los datos
+		inicio=leerArchivo(nombreArchivo);
+		resultados=delegar(inicio, cantDiscos, anchoDiscos, flag);
+		salidaArchivo(nombreSalida, resultados, cantDiscos);
 		printf("%s\n", nombreArchivo);
 		printf("%s\n", nombreSalida);
 		printf("%i\n", cantDiscos);
