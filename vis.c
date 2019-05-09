@@ -6,8 +6,16 @@ int main(){
 	int flag;
 	read(STDIN_FILENO,&flag, sizeof(flag));
 	Nodo * inicial;
-	int cantidad = recibirDatos(inicial);
+	int ancho = recibirDatos(inicial);
 	Resultado * resultado = malloc(sizeof(Resultado));
+	resultado->mediaReal = mediaReal(inicial,ancho);
+	resultado->mediaImaginaria = mediaImaginaria(inicial, ancho);
+	resultado->potencia = potencia(inicial);
+	resultado->ruidoTotal = ruidoTotal(inicial);
+	resultado->pid = getpid();
 	write(STDOUT_FILENO,resultado,sizeof(Resultado));
+	if(flag){
+		printf("Soy el hijo de pid %d, procese %d visibilidades",getpid(),ancho);
+	}
 	return 0;
 }

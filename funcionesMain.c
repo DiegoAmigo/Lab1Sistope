@@ -21,6 +21,7 @@ void freeNodos(Nodo * nodoInicial){
 	while(actual->siguiente != NULL){
 		aux = actual;
 		actual = actual->siguiente;
+		free(aux->linea);
 		free(aux);
 	}
 }
@@ -44,7 +45,7 @@ Nodo * leerArchivo(char * direccion){
 	return inicial;
 }
 
-void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
+Resultado ** delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
 	int ** descriptores = (int **)calloc(ndiscos*2, sizeof(int *));
 	int i;
 	int * pids = (int *)calloc(ndiscos, sizeof(int));
@@ -56,9 +57,9 @@ void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
 	//se crean los hijos, se establecen los canales de comunicación y se les hace exec
 	int j;
 	for(i = 0; i<ndiscos; i++){
-		pid[i] = fork();
+		pids[i] = fork();
 		j = i*2;
-		if(pid[i] == 0){
+		if(pids[i] == 0){
 			//descriptor[j] será para que el padre le envíe datos al hijo i
 			close(descriptores[j][WRITE]);//Se cierra el canal de escritura del descriptor[j]
 			dup2(descriptores[j][READ],STDIN_FILENO);//El canal de lectura del descriptor[j] se duplica y pasa a ser el standar input
@@ -106,4 +107,11 @@ void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag){
 		close(descriptores[j][WRITE]); //Se cierra descriptor del padre para escritura ya que no se hará mas uso de el.
 	}
 	//Se leen los resultados de los hijos.
+	Resultado ** resultados = calloc(ndiscos,sizeof(Resultado *));
+	for(i = 0; i<ndiscos; i++){
+		j = i*2;
+		resultados[i] = malloc(sizeof(Resultado));
+		read(descriptores[j][READ],resultados[i],sizeof(resultados[i]));
+	}
+	return resultados;
 }

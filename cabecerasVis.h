@@ -29,3 +29,11 @@ struct Resultado{
 };
 
 typedef struct Resultado Resultado;
+
+void agregar(Nodo * nuevoNodo, Nodo * nodoInicial);
+void freeNodos(Nodo * nodoInicial);
+int recibirDatos(Nodo * inicial);
+float mediaReal(Nodo *nodoInicio, int anchoDisco);
+float mediaImaginaria(Nodo *nodoInicio, int anchoDisco);
+float potencia(Nodo *nodoInicio);
+float ruidoTotal(Nodo *nodoInicio);
