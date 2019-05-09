@@ -13,9 +13,7 @@ int main(){
 	resultado->potencia = potencia(inicial);
 	resultado->ruidoTotal = ruidoTotal(inicial);
 	resultado->pid = getpid();
+	resultado->visibilidades = ancho;
 	write(STDOUT_FILENO,resultado,sizeof(Resultado));
-	if(flag){
-		printf("Soy el hijo de pid %d, procese %d visibilidades",getpid(),ancho);
-	}
 	return 0;
 }

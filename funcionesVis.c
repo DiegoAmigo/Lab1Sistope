@@ -34,7 +34,6 @@ int recibirDatos(Nodo * inicial){
 	while(1) {
 		read(STDIN_FILENO, buffer, sizeof(buffer));
 		if(strcmp(buffer,"FIN") == 0){
-			close(STDIN_FILENO);
 			break;
 		}
 		cantidad++;
