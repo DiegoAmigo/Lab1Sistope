@@ -5,6 +5,7 @@
 #include  <sys/wait.h>     
 #include <math.h>
 
+//Struct para listar
 struct Nodo{
 	struct Nodo * siguiente;
 	char * visibilidad;
@@ -12,6 +13,7 @@ struct Nodo{
 
 typedef struct Nodo Nodo;
 
+//Struct para guardar los resultados obtenidos desde los hijos
 struct Resultado{
 	float mediaReal;
 	float mediaImaginaria;
@@ -23,6 +25,7 @@ struct Resultado{
 
 typedef struct Resultado Resultado;
 
+//Struct para guardar descriptores de cada hijo creado
 struct Descriptores{
 	int * escritura;//descriptor de escritura desde el padre a los hijo
 	int * lectura;//descriptor de lectura que usa el padre para leer a sus hijos
