@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include  <sys/wait.h>     
+#include <math.h>
 
 struct Nodo{
 	struct Nodo * siguiente;
-	char * linea;
+	char * visibilidad;
 };
 
 typedef struct Nodo Nodo;
@@ -15,15 +17,23 @@ struct Resultado{
 	float mediaImaginaria;
 	float potencia;
 	float ruidoTotal;
-	int pid;
+	pid_t pid;
 	int visibilidades;
 };
 
 typedef struct Resultado Resultado;
 
+struct Descriptores{
+	int * escritura;//descriptor de escritura desde el padre a los hijo
+	int * lectura;//descriptor de lectura que usa el padre para leer a sus hijos
+	pid_t pid;
+};
+
+typedef struct Descriptores Descriptores;
+
+void delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag, char * nombreArchivo);
 void recibirArgumentos(int argc, char *argv[], int *n, int *flag);
-void agregar(Nodo * nuevoNodo, Nodo * nodoInicial);
 void freeNodos(Nodo * nodoInicial);
 Nodo * leerArchivo(char * direccion);
-Resultado ** delegar(Nodo * nodoInicial, int ndiscos, int ancho, int flag);
 void salidaArchivo(char *nombreArchivo, Resultado **resultado, int cantDiscos);
+int direccionarVisibilidad(char * visibilidad, int ancho, int ndiscos);
